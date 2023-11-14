@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <style>
+        .slider-container {
+            width: 70%; /* Ajusta el ancho del slider según tus necesidades */
+            margin: auto;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 300px; /* Para mantener la proporción de la imagen */
+        }
+        /* Estilos para las tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Estilos del slider */
+        .slider-container {
+            width: 80%;
+            margin: auto;
+        }
+
+        .slider img {
+            width: 100%;
+        }
+
+        /* Estilos de la sección de historia */
+        .historia-section {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .historia-section h2 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .historia-section p {
+            font-size: 18px;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: right; /* Alinea los enlaces hacia el lado derecho */
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .logo-container {
+            float: left; /* Alinea la imagen hacia el lado izquierdo */
+        }
+
+        .logo-container img {
+            width: 80px;
+            height: 20px; /* Ajusta la altura de la imagen según tus necesidades */
+            cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <div class="logo-container">
+                <a href="inicio.html">
+                    <img src="logo.png" alt="Sweet Time">
+                </a>
+            </div>
+            <div>
+            <a href="ingreso.html">Salir</a>
+            <a href="pagina.html">Caja</a>
+            <a href="inicio.html">Inicio</a>
+        </div>
+    </nav>
+
+    <!-- Slider de Imágenes -->
+    <div class="slider-container">
+        <div class="slider">
+            <div><img src="p3.jpg" alt="Producto 3"></div>
+            <div><img src="p4.jpg" alt="Producto 4"></div>
+            <div><img src="p5.jpg" alt="Producto 5"></div>
+            <!-- Agrega más imágenes según sea necesario -->
+        </div>
+    </div>
+
+    <!-- Sección de Historia -->
+    <section class="historia-section">
+        <h2>Nuestra Historia</h2>
+        <p><strong>¡Bienvenido a Sweet Time! Somos una dulcería comprometida...</strong><br> Nuestro emprendimiento se especializa en el sector de la pastelería, ofreciendo una amplia gama de deliciosos dulces y pasteles. Destacamos por la implementación de un avanzado sistema informático que gestiona de manera eficiente la atención a nuestros clientes y registra con precisión las ventas y los productos vendidos. Este enfoque tecnológico nos permite brindar un servicio personalizado y mejorar continuamente nuestra oferta de productos, garantizando una experiencia excepcional para nuestros clientes.</p>
+        <!-- Agrega más contenido según sea necesario -->
+    </section>
+
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true
+            });
+        });
+    </script>
+</body>
+</html>

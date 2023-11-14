@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro y Resumen de Ventas</title>
+    <style>
+        /* Estilos para las tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilo para los botones */
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Estilo para el resumen */
+        h2 {
+            margin-top: 20px;
+        }
+
+        /* Estilo para los precios */
+        .price {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        nav {
+            background-color: #4CAF50;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: right; /* Alinea los enlaces hacia el lado derecho */
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .logo-container {
+            float: left; /* Alinea la imagen hacia el lado izquierdo */
+        }
+
+        .logo-container img {
+            width: 80px;
+            height: 20px; /* Ajusta la altura de la imagen según tus necesidades */
+            cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <div class="logo-container">
+                <a href="inicio.html">
+                    <img src="logo.png" alt="Sweet Time">
+                </a>
+            </div>
+            <div>
+            <a href="ingreso.html">Salir</a>
+            <a href="pagina.html">Caja</a>
+            <a href="inicio.html">Inicio</a>
+        </div>
+    </nav>
+    <h1>Registro de Ventas</h1>
+    <form id="ventaForm">
+        <label for="nombreCliente">Nombre del Cliente:</label>
+        <input type="text" id="nombreCliente" required><br><br>
+
+        <label for="producto">Producto:</label>
+        <select id="producto" required>
+            <option value="Bolitas de chocolate">Bolitas de chocolate</option>
+            <option value="Alfajores">Alfajores</option>
+            <option value="Galletas de chocolate">Galletas de chocolate</option>
+            <option value="Cupcakes">Cupcakes</option>
+            <option value="Torta de chocolate">Torta de chocolate</option>
+            <option value="Donas">Donas</option>
+            <option value="Otra">Otra</option>
+        </select><br><br>
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" required><br><br>
+
+        <label for="precio">Precio ($):</label>
+        <input type="number" id="precio" step="0.01" required><br><br>
+
+        <input type="submit" value="Agregar Venta">
+    </form>
+
+    <h1>Resumen de Ventas</h1>
+    <table id="tablaResumen">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad Vendida</th>
+                <th>Total de Precios ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregarán las filas del resumen de ventas -->
+        </tbody>
+    </table>
+
+    <h2>Total General de Ventas: <span class="price" id="totalGeneral">0.00</span></h2>
+
+    <script>
+        document.getElementById("ventaForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nombreCliente = document.getElementById("nombreCliente").value;
+            const producto = document.getElementById("producto").value;
+            const cantidad = parseInt(document.getElementById("cantidad").value);
+            const precio = parseFloat(document.getElementById("precio").value);
+
+            const totalVenta = cantidad * precio;
+
+            // Crea un objeto para representar la venta
+            const venta = {
+                producto,
+                cantidad,
+                totalVenta
+            };
+
+            // Agrega la venta al resumen
+            agregarVentaAlResumen(venta);
+
+            // Limpia el formulario
+            document.getElementById("nombreCliente").value = "";
+            document.getElementById("cantidad").value = "";
+            document.getElementById("precio").value = "";
+        });
+
+        function agregarVentaAlResumen(venta) {
+            const tablaResumen = document.getElementById("tablaResumen");
+            const totalGeneralElement = document.getElementById("totalGeneral");
+
+            // Busca si ya hay una fila para este producto en el resumen
+            const filas = tablaResumen.getElementsByTagName("tr");
+            for (let i = 0; i < filas.length; i++) {
+                const fila = filas[i];
+                if (fila.cells[0].textContent === venta.producto) {
+                    // Ya existe una fila para este producto, actualiza la cantidad y el total
+                    const cantidadActual = parseInt(fila.cells[1].textContent);
+                    const totalActual = parseFloat(fila.cells[2].textContent.replace("$", ""));
+                    fila.cells[1].textContent = cantidadActual + venta.cantidad;
+                    fila.cells[2].textContent = (totalActual + venta.totalVenta).toFixed(2);
+                    actualizarTotalGeneral();
+                    return;
+                }
+            }
+
+            // Si no existe una fila para este producto, crea una nueva
+            const filaNueva = tablaResumen.insertRow(-1);
+            const celdaProducto = filaNueva.insertCell(0);
+            const celdaCantidad = filaNueva.insertCell(1);
+            const celdaTotal = filaNueva.insertCell(2);
+
+            celdaProducto.textContent = venta.producto;
+            celdaCantidad.textContent = venta.cantidad;
+            celdaTotal.textContent = venta.totalVenta.toFixed(2);
+
+            actualizarTotalGeneral();
+        }
+
+        function actualizarTotalGeneral() {
+            const tablaResumen = document.getElementById("tablaResumen");
+            const filas = tablaResumen.getElementsByTagName("tr");
+            let totalGeneral = 0;
+
+            for (let i = 1; i < filas.length; i++) {
+                const fila = filas[i];
+                totalGeneral += parseFloat(fila.cells[2].textContent.replace("$", ""));
+            }
+
+            document.getElementById("totalGeneral").textContent = totalGeneral.toFixed(2);
+        }
+    </script>
+</body>
+</html>
